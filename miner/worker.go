@@ -425,7 +425,9 @@ func (self *worker) commitNewWork() {
 		tstamp = parent.Time().Int64() + 1
 	}
 	// this will ensure we're not going off too far in the future
-	if now := time.Now().Unix(); tstamp > now+4 {
+	//JUAN-PATCH-SPEED
+	//if now := time.Now().Unix(); tstamp > now+4 {
+	if now := time.Now().Unix(); tstamp > now {
 		wait := time.Duration(tstamp-now) * time.Second
 		glog.V(logger.Info).Infoln("We are too far in the future. Waiting for", wait)
 		time.Sleep(wait)
